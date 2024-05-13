@@ -11,7 +11,7 @@ const Footer = () => {
 
             <div className='footer-content-left'>
                 <img src={assets.logo} alt="" />
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis nulla tenetur ratione porro harum dignissimos unde dolorem aperiam eveniet sit, sint modi et deserunt culpa, numquam veritatis reiciendis quibusdam dolor!</p>
+                <p>Our Web App, "Tomato," revolutionizes the way you experience food delivery. With a seamless interface, it allows you to explore a variety of restaurants, order your favorite meals, and have fun</p>
                 <div className="footer-social-icons">
                     <img src={assets.facebook_icon} alt="" />
                     <img src={assets.twitter_icon} alt="" />
