@@ -3,6 +3,7 @@ import './LoginPopup.css'
 import { assets } from '../../assets/assets'
 import axios from 'axios'
 import { StoreContext } from '../../Context/StoreContext'
+import { Toaster, toast } from 'sonner'
 
 const LoginPopup = ({setShowLogin}) => {
 
@@ -36,15 +37,17 @@ const LoginPopup = ({setShowLogin}) => {
             setToken(response.data.token)
             localStorage.setItem("token", response.data.token)
             setShowLogin(false)
+            toast.success(response.data.message)
         }
         else {
-            alert(response.data.message)
+            toast.error(response.data.message)
         }
     }
 
 
   return (
     <div className='login-popup'>
+        <Toaster richColors position='top-right' />
         <form onSubmit={onLogin} className="login-popup-container">
             <div className="login-popup-title">
                 <h2>{currState}</h2>

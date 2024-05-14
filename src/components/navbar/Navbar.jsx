@@ -3,7 +3,7 @@ import './Navbar.css'
 import {assets} from '../../assets/assets.js'
 import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../Context/StoreContext.jsx'
-
+import { Toaster, toast } from 'sonner'
 
 const Navbar = ({setShowLogin}) => {
 
@@ -15,12 +15,13 @@ const Navbar = ({setShowLogin}) => {
         localStorage.removeItem("token")
         setToken("")
         navigate("/")
+        toast.success('Logged Out')
     }
 
 
   return (
     <div className='navbar'>
-
+        <Toaster richColors position='top-right' />
         <Link to="/"><img src={assets.logo} alt="" className='logo'/></Link>
         <ul className='navbar-menu'>
             <Link to='/' onClick={() => setMenu("Home")} 
