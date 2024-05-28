@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import {toast, Toaster} from 'sonner'
 import axios from 'axios'
 
 export const StoreContext = createContext()
@@ -9,6 +10,7 @@ const ContextProvider = (props) => {
     const url = "https://food-del-backend-o1mw.onrender.com"
     const [token,setToken] = useState("");
     const [food_list, setFoodList] = useState([])
+    const [isLoading, setIsloading] = useState(true)
     
     const addToCart = async(itemId) => {
         if(!cartItems[itemId]) {
@@ -66,16 +68,25 @@ const ContextProvider = (props) => {
     }
 
     useEffect(() => {
-      async function loadData() {
-        await fetchFoodList();
+        <Toaster position="top-right" richColors />
+        async function loadData() {
+            try { 
+                await fetchFoodList();
 
-            if (localStorage.getItem("token")) {
-                setToken(localStorage.getItem("token"));
-                await loadCartData(localStorage.getItem("token"));
+                    if (localStorage.getItem("token")) {
+                        setToken(localStorage.getItem("token"));
+                        await loadCartData(localStorage.getItem("token"));
+                    }
+            }
+            catch (error) {
+                console.error("error in fetching data", error)
+            }  finally {
+                setIsloading(false)
+                toast.success("PLEASE REFRESH IF FOOD LIST NOT FETCHED", {duration:2000})
             }
         }
-        loadData();
-    }, [])
+        loadData()
+}, [])
     
 
 
@@ -89,7 +100,8 @@ const ContextProvider = (props) => {
         getNumberOfItemsInCart,
         url,
         token,
-        setToken
+        setToken,
+        isLoading
     }
 
     return (
